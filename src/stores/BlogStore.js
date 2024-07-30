@@ -1,5 +1,6 @@
 // stores/counter.js
 import { defineStore } from 'pinia'
+import router from '../router'
 import axios from 'axios'
 
 export const useBlogStore = defineStore('blog', {
@@ -35,12 +36,10 @@ export const useBlogStore = defineStore('blog', {
     async addBlog(data) {
       try {
         const response = await axios.post('http://localhost:8000/api/', data);
-        console.log(response.data);
         this.blogs = response.data;
+        router.push(`/blogs/${response.data.id}`);
       } catch (error) {
         console.error('Error fetching jobs', error);
-      } finally {
-        this.isLoading = false;
       }
     }
   }
