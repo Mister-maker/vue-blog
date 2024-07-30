@@ -40,10 +40,10 @@
                 <p class="font-semibold text-gray-900">
                     <a href="#">
                         <span class="absolute inset-0"></span>
-                        {{ blog.company.name }}
+                        {{ blog.author }}
                     </a>
                 </p>
-                <p class="text-gray-600">{{ blog.company.contactEmail}}</p>
+                <p class="text-gray-600">Test Test</p>
             </div>
         </div>
     </article>

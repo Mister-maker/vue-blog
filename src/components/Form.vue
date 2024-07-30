@@ -1,13 +1,17 @@
 <script setup>
-    import { ref, reactive } from 'vue';
+    import { reactive } from 'vue';
+    import { useBlogStore } from '@/stores/BlogStore';
+
+    const blogStore = useBlogStore();
 
     const form = reactive({
         title: '',
         description: '',
+        author: '',
     });
 
     const handleSubmit = () => {
-        console.log(form.title);
+        blogStore.addBlog(form);
     }
 
 </script>
@@ -27,10 +31,10 @@
                         class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                 </div>
                 <div class="mb-5">
-                    <label for="subject" class="mb-3 block text-base font-medium text-[#07074D]">
-                        Subject
+                    <label for="author"  class="mb-3 block text-base font-medium text-[#07074D]">
+                        Author Name
                     </label>
-                    <input type="text" name="subject" id="subject" placeholder="Enter your subject"
+                    <input type="text" v-model="form.author" name="author" id="author" placeholder="Enter author name"
                         class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                 </div>
                 <div class="mb-5">
