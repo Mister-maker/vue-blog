@@ -15,6 +15,7 @@ export const useBlogStore = defineStore('blog', {
       try {
         const response = await axios.get('http://localhost:8000/api/');
         this.blogs = response.data;
+
       } catch (error) {
         console.error('Error fetching jobs', error);
       } finally {
@@ -36,8 +37,9 @@ export const useBlogStore = defineStore('blog', {
     async addBlog(data) {
       try {
         const response = await axios.post('http://localhost:8000/api/', data);
-        this.blogs = response.data;
+        this.blogs = [...this.blogs, response.data];
         router.push(`/blogs/${response.data.id}`);
+
       } catch (error) {
         console.error('Error fetching jobs', error);
       }
