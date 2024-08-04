@@ -13,7 +13,8 @@ export const useBlogStore = defineStore('blog', {
   actions: {
     async getBlogs() {
       try {
-        const response = await axios.get('http://localhost:8000/api/');
+        const response = await axios.get('http://localhost:8000/blogs/api/');
+        console.log(response.data)
         this.blogs = response.data;
 
       } catch (error) {
@@ -25,7 +26,7 @@ export const useBlogStore = defineStore('blog', {
 
     async getBlogDetails(id) {
       try {
-        const response = await axios.get(`http://localhost:8000/api/${id}`);
+        const response = await axios.get(`http://localhost:8000/blogs/api/${id}`);
         this.blogDetails = response.data;
       } catch (error) {
         console.error('Error fetching jobs', error);
@@ -36,13 +37,20 @@ export const useBlogStore = defineStore('blog', {
 
     async addBlog(data) {
       try {
-        const response = await axios.post('http://localhost:8000/api/', data);
+        const response = await axios.post('http://localhost:8000/blogs/api/', data);
         this.blogs = [...this.blogs, response.data];
         router.push(`/blogs/${response.data.id}`);
 
       } catch (error) {
         console.error('Error fetching jobs', error);
       }
+    },
+
+    dateFormater (date) {
+      const newDate = new Date(date);
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      const formattedDate = newDate.toLocaleDateString('en-US', options);
+      return formattedDate;
     }
   }
 })

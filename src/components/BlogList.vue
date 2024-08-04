@@ -1,10 +1,14 @@
 <script setup>
+    import { useBlogStore } from '@/stores/BlogStore';
     import { defineProps } from 'vue';
     import { RouterLink } from 'vue-router';
 
     defineProps({
         blog: Object
     });
+
+    // Blogs Store
+    const blogStore = useBlogStore();
 
     const shortDescription = (description) => {
         if (description.length > 100) {
@@ -18,11 +22,11 @@
 <template>
     <article class="flex max-w-xl flex-col items-start justify-between p-4">
         <div class="flex items-center gap-x-4 text-xs">
-            <time datetime="2020-03-16" class="text-gray-500">Mar 16, 2020</time>
+            <time datetime="2020-03-16" class="text-gray-500">{{ blogStore.dateFormater(blog.timestamp) }}</time>
         </div>
         <div class="group relative">
             <img class="rounded-lg"
-                src="https://images.unsplash.com/photo-1533050487297-09b450131914?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                :src="blog.blog_image"
                 alt="">
             <h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
                 <RouterLink :to="`/blogs/${blog.id}`">
@@ -40,10 +44,10 @@
                 <p class="font-semibold text-gray-900">
                     <a href="#">
                         <span class="absolute inset-0"></span>
-                        {{ blog.author }}
+                        {{ blog.author.name }}
                     </a>
                 </p>
-                <p class="text-gray-600">Test Test</p>
+                <p class="text-gray-600">{{ blog.author.designation }}</p>
             </div>
         </div>
     </article>

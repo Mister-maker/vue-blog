@@ -32,10 +32,10 @@
             </div>
             
             <div class="lg:w-4/5 mx-auto flex flex-wrap">
-                <img alt="ecommerce" class="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200" src="https://images.unsplash.com/photo-1533050487297-09b450131914?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
+                <img alt="ecommerce" class="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200" :src="blogStore.blogDetails.blog_image">
                 <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
                     
-                    <h2 class="text-sm title-font text-gray-700 tracking-widest">Outdoor</h2>
+                    <h2 class="text-sm title-font text-gray-700 tracking-widest">{{ blogStore.dateFormater(blogStore.blogDetails.timestamp) }}</h2>
                     <h1 class="text-gray-900 text-4xl title-font font-bold mb-1">{{ blogStore.blogDetails.title }}</h1>
                     <div class="flex mb-4">
                         <span class="title-font font-medium text-2xl text-gray-900">{{ blogStore.blogDetails.salary }}</span>
