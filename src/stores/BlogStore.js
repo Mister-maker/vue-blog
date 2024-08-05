@@ -33,16 +33,14 @@ export const useBlogStore = defineStore('blog', {
       } finally {
         this.isLoading = false;
       }
-    }, 
+    },
 
-    async addBlog(data) {
+    async deleteBlog(id) {
       try {
-        const response = await axios.post('http://localhost:8000/blogs/api/', data);
-        this.blogs = [...this.blogs, response.data];
-        router.push(`/blogs/${response.data.id}`);
-
+        await axios.delete(`http://localhost:8000/blogs/api/${id}`);
+        router.push('/blogs');
       } catch (error) {
-        console.error('Error fetching jobs', error);
+        console.error('Error deleting blog', error);
       }
     },
 

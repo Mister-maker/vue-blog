@@ -1,6 +1,8 @@
 // stores/formStore.js
 import { defineStore } from 'pinia';
 import axios from 'axios';
+import router from '../router'
+
 
 export const useFormStore = defineStore('formStore', {
   state: () => ({
@@ -11,36 +13,25 @@ export const useFormStore = defineStore('formStore', {
             name: '',
             designation: '',
         },
-        image: null
+        blog_image: null
     },
+    isLoading : false
   }),
   actions: {
     async submitForm() {
       try {
-        // Create FormData object
-        const formData = new FormData();
-        formData.append('title', this.formData.title);
-        formData.append('description', this.formData.description);
-        
-        // Flatten and append nested author object if needed
-        formData.append('author[name]', this.formData.author.name);
-        formData.append('author[designation]', this.formData.author.designation);
-    
-        //Append file if you have one (assuming `image` is a URL)
-        if (this.formData.image) {
-          const response = await fetch(this.formData.image);
-          const blob = await response.blob();
-          formData.append('image', blob, this.formData.image);
-        }
+        // start loading    
+        this.isLoading = true;
+
         // Perform Axios request
-        const response = await axios.post('http://localhost:8000/blogs/api/', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
+        const response = await axios.post('http://localhost:8000/blogs/api/', this.formData, {
+          header : {
+            'Content-Type' : 'application/json'
           }
         });
-    
         // Handle successful response
-        console.log('Response data:', response.data);
+        this.isLoading = false;
+        router.push(`/blogs/${response.data.id}`);
         return response.data;
       } catch (error) {
         // Handle error
