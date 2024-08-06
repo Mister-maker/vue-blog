@@ -1,6 +1,8 @@
 <script setup>
   import { useBlogStore } from '@/stores/BlogStore';
   import { RouterLink } from 'vue-router';
+  import SyncLoader from 'vue-spinner/src/SyncLoader.vue';
+
 
   import BlogList from './BlogList.vue';
   import { defineProps } from 'vue';

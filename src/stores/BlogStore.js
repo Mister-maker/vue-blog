@@ -14,7 +14,6 @@ export const useBlogStore = defineStore('blog', {
     async getBlogs() {
       try {
         const response = await axios.get('http://localhost:8000/blogs/api/');
-        console.log(response.data)
         this.blogs = response.data;
 
       } catch (error) {
@@ -28,6 +27,17 @@ export const useBlogStore = defineStore('blog', {
       try {
         const response = await axios.get(`http://localhost:8000/blogs/api/${id}`);
         this.blogDetails = response.data;
+      } catch (error) {
+        console.error('Error fetching jobs', error);
+      } finally {
+        this.isLoading = false;
+      }
+    },
+
+    async searchBlogs(query) {
+      try {
+        const response = await axios.get(`http://localhost:8000/blogs/api/?search=${query}`);
+        this.blogs = response.data;
       } catch (error) {
         console.error('Error fetching jobs', error);
       } finally {
